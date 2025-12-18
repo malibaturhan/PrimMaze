@@ -4,8 +4,11 @@ public class Maze : MonoBehaviour
 {
     [SerializeField] private int width;
     [SerializeField] private int depth;
+
     [SerializeField] private int scale = 6;
-    private byte[,] map;
+
+    // map[row(z), column(x)]
+    private int[,] map;
 
     void Start()
     {
@@ -16,10 +19,10 @@ public class Maze : MonoBehaviour
 
     public virtual void Initialize()
     {
-        map = new byte[depth, width];
-        for (byte z = 0; z < depth; z++)
+        map = new int[depth, width];
+        for (int z = 0; z < depth; z++)
         {
-            for (byte x = 0; x < width; x++)
+            for (int x = 0; x < width; x++)
             {
                 map[z, x] = 1;
             }
@@ -28,9 +31,40 @@ public class Maze : MonoBehaviour
 
     #region Sample Walker
 
-    private void WalkVertical(byte x, byte z)
+    private void WalkVertical(int x, int z)
     {
-           
+        map[z, x] = 0;
+        bool goUp = Random.Range(0, 2) == 0;
+        bool done = false;
+        while (!done)
+        {
+            int goLeftRightMiddle = Random.Range(-1, 2);
+            int nextX = goLeftRightMiddle + x;
+            int nextZ = z + (goUp ? 1 : -1);
+            map[nextZ, nextX] = 0;
+            x = nextX;
+            z = nextZ;
+            done |= x <= 0 || x >= width - 1 || z <= 0 || z >= depth - 1;
+            Debug.Log("Walking Vertical");
+        }
+    }
+
+    private void WalkHorizontal(int x, int z)
+    {
+        map[z, x] = 0;
+        bool goRight = Random.Range(0, 2) == 0;
+        bool done = false;
+        while (!done)
+        {
+            int goUpDownMiddle = Random.Range(-1, 2);
+            int nextZ = goUpDownMiddle + z;
+            int nextX = x + (goRight ? 1 : -1);
+            map[nextZ, nextX] = 0;
+            x = nextX;
+            z = nextZ;
+            done |= x <= 0 || x >= width - 1 || z <= 0 || z >= depth - 1;
+            Debug.Log("Walking horizontal");
+        }
     }
 
     #endregion
@@ -38,14 +72,23 @@ public class Maze : MonoBehaviour
     public virtual void Generate()
     {
         // Random Walker
-        
+        var startX = Random.Range(1, width - 1);
+        var startZ = Random.Range(1, depth - 1);
+        for (int i = 0; i < Mathf.Ceil(width / 10); i++)
+        {
+            for (int j = 0; j < Mathf.Ceil(depth / 10); j++)
+            {
+                WalkHorizontal(startX, startZ);
+                WalkVertical(startX, startZ);
+            }
+        }
     }
 
     public virtual void Build()
     {
-        for (byte z = 0; z < depth; z++)
+        for (int z = 0; z < depth; z++)
         {
-            for (byte x = 0; x < width; x++)
+            for (int x = 0; x < width; x++)
             {
                 if (map[z, x] == 1)
                 {
@@ -53,7 +96,6 @@ public class Maze : MonoBehaviour
                     cube.transform.position = new Vector3(x * scale, 0, z * scale);
                     cube.transform.localScale = new Vector3(scale, scale, scale);
                 }
-                
             }
         }
     }
