@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class Maze : MonoBehaviour
+public abstract class Maze : MonoBehaviour
 {
-    [SerializeField] private int width;
-    [SerializeField] private int depth;
+    [SerializeField] internal int width;
+    [SerializeField] internal int depth;
 
-    [SerializeField] private int scale = 6;
+    [SerializeField] internal int scale = 6;
 
     // map[row(z), column(x)]
-    private int[,] map;
+    internal int[,] map;
 
     void Start()
     {
@@ -101,9 +101,16 @@ public class Maze : MonoBehaviour
     }
 
 
-    public int CountSquareNeighbours(int x, int y)
+    public int CountSquareNeighbours(int x, int z)
     {
-        throw new System.NotImplementedException();
+        int count = 0;
+
+        if (map[z, x + 1] == 0) count++;
+        if (map[z, x - 1] == 0) count++;
+        if (map[z + 1, x] == 0) count++;
+        if (map[z - 1, x] == 0) count++;
+
+        return count;
     }
 
     public int CountDiagonalNeighbours(int x, int y)

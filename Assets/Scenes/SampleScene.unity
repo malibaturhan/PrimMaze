@@ -386,7 +386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 518528726}
-  - component: {fileID: 518528725}
+  - component: {fileID: 518528727}
   m_Layer: 0
   m_Name: Maze
   m_TagString: Untagged
@@ -394,21 +394,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &518528725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 518528724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f660bcd12087854d94f8b15cb46c228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 10
-  depth: 10
-  scale: 6
 --- !u!4 &518528726
 Transform:
   m_ObjectHideFlags: 0
@@ -424,6 +409,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &518528727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518528724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3f9b9b7ac968a4299e1adfaa4804b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 50
+  depth: 50
+  scale: 3
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
