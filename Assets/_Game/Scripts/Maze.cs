@@ -113,13 +113,20 @@ public abstract class Maze : MonoBehaviour
         return count;
     }
 
-    public int CountDiagonalNeighbours(int x, int y)
+    public int CountDiagonalNeighbours(int x, int z)
     {
-        throw new System.NotImplementedException();
+        int count = 0;
+
+        if (map[z - 1, x - 1] == 0) count++;
+        if (map[z - 1, x + 1] == 0) count++;
+        if (map[z + 1, x - 1] == 0) count++;
+        if (map[z + 1, x + 1] == 0) count++;
+
+        return count;
     }
 
-    public int CountAllNeighbours(int x, int y)
+    public int CountAllNeighbours(int x, int z)
     {
-        throw new System.NotImplementedException();
+        return CountDiagonalNeighbours(x, z) + CountSquareNeighbours(x, z);
     }
 }
